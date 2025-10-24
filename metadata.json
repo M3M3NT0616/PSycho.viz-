@@ -1,0 +1,8 @@
+{
+  "name": "Juans Vision ",
+  "description": "An extension-like tool to apply psychedelic, datamosh, and CRT-style effects to live or uploaded videos. Manipulate image vectors with controls for saturation, distortion, grain, and morph effects.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
