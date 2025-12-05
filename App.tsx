@@ -7,6 +7,7 @@ import SourceSelector from './components/SourceSelector';
 import Icon from './components/Icon';
 import PresetManager, { createInitialPresets } from './components/PresetManager';
 import useAudioAnalysis from './hooks/useAudioAnalysis';
+import AILab from './components/AILab';
 
 const initialPresets = createInitialPresets();
 const DEFAULT_SETTINGS = initialPresets[0].settings;
@@ -16,6 +17,7 @@ const App: React.FC = () => {
   const [effectSettings, setEffectSettings] = useState<EffectSettings>(DEFAULT_SETTINGS);
   const videoProcessorRef = useRef<VideoProcessorHandle>(null);
   const [isRecording, setIsRecording] = useState(false);
+  const [showAILab, setShowAILab] = useState(false);
   
   const audioStream = videoSource.type === VideoSourceType.WEBCAM && videoSource.data instanceof MediaStream ? videoSource.data : undefined;
   const { audioData, error: audioError, analyserNode, startAudio, stopAudio } = useAudioAnalysis(audioStream, effectSettings.audioEnabled);
@@ -35,6 +37,13 @@ const App: React.FC = () => {
           }
       }
   };
+
+  const getFrame = useCallback(() => {
+    if (videoProcessorRef.current) {
+      return videoProcessorRef.current.captureFrame();
+    }
+    return null;
+  }, []);
 
   const randomizeSettings = () => {
     const randomFloat = (min: number, max: number) => Math.random() * (max - min) + min;
@@ -90,6 +99,13 @@ const App: React.FC = () => {
         
         <div className="flex items-center space-x-4">
             <button
+                onClick={() => setShowAILab(true)}
+                className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-fuchsia-600/80 to-purple-600/80 hover:from-fuchsia-500 hover:to-purple-500 text-white rounded-full font-bold uppercase tracking-wider text-xs border border-fuchsia-400/50 shadow-[0_0_15px_rgba(192,38,211,0.4)] transition-all hover:scale-105"
+            >
+                <span>🤖 AI LAB</span>
+            </button>
+
+            <button
                 onClick={handleRecordingToggle}
                 className={`flex items-center space-x-2 px-5 py-2 rounded-full font-bold tracking-wider transition-all duration-300 ${isRecording ? 'bg-red-600 text-white animate-pulse shadow-[0_0_20px_rgba(220,38,38,0.8)] border border-red-400' : 'bg-gray-900/80 text-gray-300 hover:bg-gray-800 border border-gray-700 hover:border-gray-500 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]'}`}
             >
@@ -127,6 +143,14 @@ const App: React.FC = () => {
           />
         </aside>
       </main>
+
+      {showAILab && (
+          <AILab 
+            onClose={() => setShowAILab(false)} 
+            onApplyResult={setVideoSource}
+            getFrame={getFrame}
+          />
+      )}
     </div>
   );
 };

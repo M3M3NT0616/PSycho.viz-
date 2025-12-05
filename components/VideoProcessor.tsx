@@ -14,6 +14,7 @@ export interface VideoProcessorHandle {
     startRecording: () => void;
     stopRecording: () => void;
     isRecording: boolean;
+    captureFrame: () => string | null;
 }
 
 const VideoProcessor = forwardRef<VideoProcessorHandle, VideoProcessorProps>(({ source, settings, audioData }, ref) => {
@@ -100,6 +101,10 @@ const VideoProcessor = forwardRef<VideoProcessorHandle, VideoProcessorProps>(({ 
         if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
             mediaRecorderRef.current.stop();
         }
+    },
+    captureFrame: () => {
+        if (!rendererRef.current) return null;
+        return rendererRef.current.domElement.toDataURL('image/png').split(',')[1];
     }
   }));
 

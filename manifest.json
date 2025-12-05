@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Juans Vision - Psychedelic Video Mangler",
+  "version": "1.0",
+  "description": "Apply psychedelic, datamosh, and CRT-style effects to live camera feeds or videos.",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  },
+  "permissions": [
+    "sidePanel"
+  ],
+  "action": {
+    "default_title": "Open Vision"
+  },
+  "background": {
+    "service_worker": "service-worker.js"
+  }
+}
