@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import type { VideoSource } from '../types';
 import { VideoSourceType } from '../types';
@@ -27,7 +26,6 @@ const SourceSelector: React.FC<SourceSelectorProps> = ({ onSourceSelect, current
       const url = URL.createObjectURL(file);
       onSourceSelect({ type: VideoSourceType.FILE, data: url });
     }
-    // Reset file input to allow selecting the same file again
     if (event.target) {
         event.target.value = '';
     }
@@ -37,23 +35,25 @@ const SourceSelector: React.FC<SourceSelectorProps> = ({ onSourceSelect, current
     fileInputRef.current?.click();
   };
 
-  const baseButtonClass = "px-4 py-2 text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 transition-colors duration-200";
-  const activeButtonClass = "bg-purple-600 text-white hover:bg-purple-700 focus:ring-purple-500";
-  const inactiveButtonClass = "bg-gray-700 text-gray-300 hover:bg-gray-600 focus:ring-gray-500";
+  const baseButtonClass = "px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-full transition-all duration-300 border relative overflow-hidden group";
+  const activeButtonClass = "bg-cyan-600/20 text-cyan-300 border-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.4)]";
+  const inactiveButtonClass = "bg-gray-900/50 text-gray-400 border-gray-700 hover:border-cyan-700 hover:text-cyan-200";
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-x-3">
       <button
         onClick={handleWebcamClick}
         className={`${baseButtonClass} ${currentSourceType === VideoSourceType.WEBCAM ? activeButtonClass : inactiveButtonClass}`}
       >
-        Use Webcam
+        <span className="relative z-10">Live Feed</span>
+        {currentSourceType === VideoSourceType.WEBCAM && <div className="absolute inset-0 bg-cyan-500/10 animate-pulse"></div>}
       </button>
       <button
         onClick={handleUploadClick}
         className={`${baseButtonClass} ${currentSourceType === VideoSourceType.FILE ? activeButtonClass : inactiveButtonClass}`}
       >
-        Upload Video
+        <span className="relative z-10">Upload</span>
+        {currentSourceType === VideoSourceType.FILE && <div className="absolute inset-0 bg-cyan-500/10 animate-pulse"></div>}
       </button>
       <input
         type="file"

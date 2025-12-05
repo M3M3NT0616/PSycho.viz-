@@ -1,50 +1,37 @@
-
 import React from 'react';
 
 const Icon: React.FC = () => (
   <svg 
-    width="28" 
-    height="28" 
+    width="32" 
+    height="32" 
     viewBox="0 0 24 24" 
     fill="none" 
     xmlns="http://www.w3.org/2000/svg" 
-    className="text-purple-400"
+    className="text-fuchsia-400 drop-shadow-[0_0_8px_rgba(232,121,249,0.8)]"
   >
     <path 
-      d="M12 2L2 7V17L12 22L22 17V7L12 2Z" 
+      d="M12 2L2 19H22L12 2Z" 
       stroke="currentColor" 
       strokeWidth="1.5" 
       strokeLinecap="round" 
       strokeLinejoin="round"
+      className="animate-pulse"
     />
     <path 
-      d="M2 7L12 12L22 7" 
-      stroke="currentColor" 
-      strokeWidth="1.5" 
+      d="M12 6L17 15H7L12 6Z" 
+      stroke="#22d3ee" 
+      strokeWidth="1" 
       strokeLinecap="round" 
       strokeLinejoin="round"
     />
+    <circle cx="12" cy="12" r="2" fill="#f472b6" className="animate-[ping_3s_ease-in-out_infinite]" />
     <path 
-      d="M12 22V12" 
+      d="M2 19L12 22L22 19" 
       stroke="currentColor" 
       strokeWidth="1.5" 
       strokeLinecap="round" 
       strokeLinejoin="round"
-    />
-    <path 
-      d="M17 4.5L7 9.5" 
-      stroke="currentColor" 
-      strokeWidth="1.5" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-    />
-    <path
-        d="M20 14.5L12 18.5L4 14.5"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        opacity="0.6"
+      opacity="0.5"
     />
   </svg>
 );
